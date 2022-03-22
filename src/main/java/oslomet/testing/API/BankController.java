@@ -11,6 +11,7 @@ import oslomet.testing.Models.Kunde;
 import oslomet.testing.Models.Transaksjon;
 import oslomet.testing.Sikkerhet.Sikkerhet;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class BankController {
     @Autowired
     Sikkerhet sjekk;
 
-    @GetMapping("/hentTransaksjoner")
+    @GetMapping("/hentTransaksjoner") //
     public Konto hentTransaksjoner(String kontoNr, String fraDato, String tilDato) {
          String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
@@ -31,7 +32,7 @@ public class BankController {
         return null;
     }
 
-    @GetMapping("/hentKonti")
+    @GetMapping("/hentKonti") //
     public List<Konto> hentKonti() {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
@@ -40,7 +41,7 @@ public class BankController {
         return null;
     }
 
-    @GetMapping("/hentSaldi")
+    @GetMapping("/hentSaldi") //
     public List<Konto> hentSaldi() {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
@@ -58,7 +59,7 @@ public class BankController {
         return null;
     }
 
-    @GetMapping("/hentBetalinger")
+    @GetMapping("/hentBetalinger") //
     public List<Transaksjon> hentBetalinger() {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
@@ -78,7 +79,7 @@ public class BankController {
         return null;
     }
 
-    @GetMapping("/hentKundeInfo")
+    @GetMapping("/hentKundeInfo") //
     public Kunde hentKundeInfo() {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
@@ -96,5 +97,12 @@ public class BankController {
                 return repository.endreKundeInfo(innKunde);
             }
         return null;
+    }
+
+    @Autowired
+    private DataSource dataSource;
+    @GetMapping("/initDB")
+    public String initDB(){
+        return repository.initDB(dataSource);
     }
 }

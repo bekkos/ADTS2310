@@ -1,4 +1,7 @@
 --
+
+
+
 -- Dataark for tabell `Konto`
 --
 
